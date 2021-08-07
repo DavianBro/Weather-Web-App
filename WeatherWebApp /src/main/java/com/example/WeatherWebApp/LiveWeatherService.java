@@ -1,5 +1,7 @@
 package com.example.WeatherWebApp;
 
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -8,19 +10,16 @@ import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-
+import org.springframework.web.util.UriTemplate;
 import java.math.BigDecimal;
 import java.net.URI;
-import org.springframework.web.util.UriTemplate;
 
 
 @Service
 public class LiveWeatherService {
-
-    private static final String WEATHER_URL = "http://api.openweathermap.org/data/2.5/weather?q={city},{country}&APPID={key}&units=metric";
-
-    @Value("${api.openweathermap.key}")
-    private String apiKey;
+    private String apiKey = "babe6820b6c23462dfb226a8c6facb86";
+    private static final String WEATHER_URL = " http://api.openweathermap.org/data/2.5/weather?q={city},{country}&APPID={babe6820b6c23462dfb226a8c6facb86}&units=metric";
+    //@Value("${api.openweathermap.key}")
 
     private final RestTemplate restTemplate;
     private final ObjectMapper objectMapper;
@@ -31,7 +30,6 @@ public class LiveWeatherService {
     }
 
     public CurrentWeather getCurrentWeather(String city, String country) {
-
         URI url = new UriTemplate(WEATHER_URL).expand(city, country, apiKey);
         ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
 
@@ -49,4 +47,8 @@ public class LiveWeatherService {
             throw new RuntimeException("Error parsing JSON", e);
         }
     }
+
+
+
+
 }
