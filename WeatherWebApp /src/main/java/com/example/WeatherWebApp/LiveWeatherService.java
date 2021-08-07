@@ -11,26 +11,33 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriTemplate;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URI;
+import java.util.Properties;
 
 
 @Service
 public class LiveWeatherService {
-    private String apiKey = "babe6820b6c23462dfb226a8c6facb86";
-    private static final String WEATHER_URL = " http://api.openweathermap.org/data/2.5/weather?q={city},{country}&APPID={babe6820b6c23462dfb226a8c6facb86}&units=metric";
-    //@Value("${api.openweathermap.key}")
 
+    private String apiKey = PropertiesReader.getProperty("apiKey");
+
+    //@Value("${api.openweathermap.key}")
+    private static final String WEATHER_URL =
+            "http://api.openweathermap.org/data/2.5/weather?q={city},{country}&APPID={apiKey}&units=imperial";
+// ./gradlew build bootRun
     private final RestTemplate restTemplate;
     private final ObjectMapper objectMapper;
 
-    public LiveWeatherService(RestTemplateBuilder restTemplateBuilder, ObjectMapper objectMapper) {
+    public LiveWeatherService(RestTemplateBuilder restTemplateBuilder, ObjectMapper objectMapper) throws FileNotFoundException {
         this.restTemplate = restTemplateBuilder.build();
         this.objectMapper = objectMapper;
     }
 
     public CurrentWeather getCurrentWeather(String city, String country) {
-        URI url = new UriTemplate(WEATHER_URL).expand(city, country, apiKey);
+        URI url = new UriTemplate(WEATHER_URL).expand(city, country, apiKey); //,apiKey
         ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
 
         return convert(response);
@@ -46,7 +53,10 @@ public class LiveWeatherService {
         } catch (JsonProcessingException e) {
             throw new RuntimeException("Error parsing JSON", e);
         }
+
+
     }
+
 
 
 
