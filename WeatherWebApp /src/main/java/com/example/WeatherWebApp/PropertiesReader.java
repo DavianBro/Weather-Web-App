@@ -9,7 +9,6 @@ import java.util.Properties;
 
 import java.util.*;
 
-
 /**
  * The class Properties reader.
  */

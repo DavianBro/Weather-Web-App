@@ -18,7 +18,6 @@ import java.math.BigDecimal;
 import java.net.URI;
 import java.util.Properties;
 
-
 @Service
 public class LiveWeatherService {
 
