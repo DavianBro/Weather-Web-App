@@ -11,11 +11,15 @@ public class CurrentWeatherController {
     private final LiveWeatherService liveWeatherService;
     private final SplitWrapper splitWrapper;
 
+    // Declare GET Variable
+
+
     public CurrentWeatherController(StubWeatherService stubWeatherService, LiveWeatherService liveWeatherService, SplitWrapper splitWrapper) {
         this.stubWeatherService = stubWeatherService;
         this.liveWeatherService = liveWeatherService;
         this.splitWrapper = splitWrapper;
     }
+
 
     @GetMapping("/current-weather")
     public String getCurrentWeather(Model model) {
