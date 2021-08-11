@@ -35,8 +35,9 @@ public class LiveWeatherService {
         this.objectMapper = objectMapper;
     }
 
+    // String State
     public CurrentWeather getCurrentWeather(String city, String country) {
-        URI url = new UriTemplate(WEATHER_URL).expand(city, country, apiKey); //,apiKey
+        URI url = new UriTemplate(WEATHER_URL).expand(city, country, apiKey);
         ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
 
         return convert(response);
