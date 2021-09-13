@@ -6,7 +6,20 @@
 </head>
 <body>
 <div>
-    <h2>Current Weather</h2>
+
+    <!---
+        * Get The Page To Show the City Name That Was Entered
+        * Display Data in a way that predicts future data
+        * Finish Developing the search city page and make it more robust
+        * Implement CSS and Java Script for a more robust front enfd 
+        *
+     --->
+    <h2>Current Weather For: <span id="cityName"></span> </h2>
+    <script>
+    let  cityName = "Detroit";
+    document.getElementById("cityName").innerHTML = cityName;
+  </script>
+    <p th:text="${LiveWeatherService.getCurrentWeather}">Description</p>
     <h3>Current Conditions</h3>
     <p th:text="${currentWeather.description}">Description</p>
     <h3>Temperature</h3>

@@ -38,9 +38,7 @@ public class CurrentWeatherController extends HttpServlet {
     public String getCurrentWeather(HttpServletRequest request, HttpServletResponse response, Model model)
     throws ServletException, IOException {
 
-        String City = request.getParameter("City");
-
-
+       String City = request.getParameter("City");
         if (splitWrapper.isTreatmentOn("live-weather")) {
             model.addAttribute("currentWeather", liveWeatherService.getCurrentWeather(City,"us"));
         } else {
@@ -49,5 +47,8 @@ public class CurrentWeatherController extends HttpServlet {
         return "current-weather";
     }
 }
-
+/// If City not found
+// Put weather city name in current-weather.html
+// Backbutton
+// Different images dependent on weather.
 // ./gradlew build bootRun
